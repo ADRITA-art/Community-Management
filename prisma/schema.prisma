@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id  @default(cuid())
+  name       String    @db.VarChar(64)
+  email      String    @unique @db.VarChar(128)
+  password   String    @db.VarChar(64)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  communitiesOwned Community[] @relation("CommunityOwner")
+  members     Member[]
+}
+
+model Community {
+  id         String    @id  @default(cuid())
+  name       String    @db.VarChar(128)
+  slug       String    @unique @db.VarChar(255)
+  ownerId    String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  owner      User      @relation("CommunityOwner", fields: [ownerId], references: [id])
+  members    Member[]
+}
+
+model Role {
+  id         String    @id  @default(cuid())
+  name       String    @unique @db.VarChar(64)
+  scopes     String[]  @db.Text
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  members    Member[]
+}
+
+model Member {
+  id         String    @id   @default(cuid())
+  communityId String
+  userId     String
+  roleId     String
+  created_at DateTime  @default(now())
+
+  community Community @relation(fields: [communityId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  role      Role      @relation(fields: [roleId], references: [id])
+
+  @@unique([communityId, userId])
+}

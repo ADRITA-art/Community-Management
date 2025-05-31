@@ -1,0 +1,62 @@
+import type { Request, Response , NextFunction} from "express";
+import { createRole, getAllRoles } from "../services/roleService";
+import { createRoleSchema } from "../validators/roleValidate";
+
+const handleCreateRole = async (req: Request) => {
+  const body = req.body;
+  const { error } = createRoleSchema.validate(body);
+  if (error) {
+    return {
+      status: false,
+      message: error.message
+
+    };
+  }
+
+  try {
+    const roles = await createRole(body.name);
+    const { scopes, ...sanitizedRole } = roles;
+    return {
+      status: true,
+      content: { data: sanitizedRole },
+      statusCode: 200
+    };
+  } catch (err: any) {
+    return {
+      status: false,
+      message: err.message || "Something went wrong",
+      statusCode: 500
+    };
+  }
+};
+
+const handleGetAllRoles = async () => {
+  try {
+    const roles = await getAllRoles();
+    const sanitizedRoles = roles.map((role: { scopes: any; [key: string]: any }) => {
+      const { scopes, ...rest } = role;
+      return rest;
+    });
+
+    return {
+      status: true,
+      content: {
+        meta: {
+          total: sanitizedRoles.length,
+          pages: 1,
+          page: 1
+        },
+        data: sanitizedRoles
+      },
+      statusCode: 200
+    };
+  } catch (err: any) {
+    return {
+      status: false,
+      message: err.message || "Something went wrong",
+      statusCode: 500
+    };
+  }
+};
+
+export { handleCreateRole, handleGetAllRoles };
