@@ -14,11 +14,10 @@ const handleCreateRole = async (req: Request) => {
   }
 
   try {
-    const roles = await createRole(body.name);
-    const { scopes, ...sanitizedRole } = roles;
+    const role = await createRole(body.name);
     return {
       status: true,
-      content: { data: sanitizedRole },
+      content: { data: role },
       statusCode: 200
     };
   } catch (err: any) {
@@ -33,20 +32,17 @@ const handleCreateRole = async (req: Request) => {
 const handleGetAllRoles = async () => {
   try {
     const roles = await getAllRoles();
-    const sanitizedRoles = roles.map((role: { scopes: any; [key: string]: any }) => {
-      const { scopes, ...rest } = role;
-      return rest;
-    });
+    const data = roles;
 
     return {
       status: true,
       content: {
         meta: {
-          total: sanitizedRoles.length,
-          pages: 1,
-          page: 1
-        },
-        data: sanitizedRoles
+          total: data.length,
+           pages: 1,
+           page: 1
+         },
+        data: data
       },
       statusCode: 200
     };
