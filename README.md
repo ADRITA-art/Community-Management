@@ -57,100 +57,324 @@ The server will start running on `http://localhost:3000`
 
 #### 1. Sign Up
 - **Endpoint:** `POST /v1/auth/signup`
-- **Body:**
+- **Request Body:**
   ```json
   {
-    "name": "string",
-    "email": "string",
-    "password": "string"
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "securepassword123"
   }
   ```
-- **Response:** User details with access token
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "user_id",
+        "name": "John Doe",
+        "email": "john@example.com",
+        "created_at": "2024-03-20T10:00:00Z"
+      },
+      "meta": {
+        "access_token": "jwt_token_here"
+      }
+    }
+  }
+  ```
 
 #### 2. Sign In
 - **Endpoint:** `POST /v1/auth/signin`
-- **Body:**
+- **Request Body:**
   ```json
   {
-    "email": "string",
-    "password": "string"
+    "email": "john@example.com",
+    "password": "securepassword123"
   }
   ```
-- **Response:** User details with access token
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "user_id",
+        "name": "John Doe",
+        "email": "john@example.com",
+        "created_at": "2024-03-20T10:00:00Z"
+      },
+      "meta": {
+        "access_token": "jwt_token_here"
+      }
+    }
+  }
+  ```
 
 #### 3. Get User Profile
 - **Endpoint:** `GET /v1/auth/me`
 - **Headers:** `Authorization: Bearer <token>`
-- **Response:** User profile details
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "user_id",
+        "name": "John Doe",
+        "email": "john@example.com",
+        "created_at": "2024-03-20T10:00:00Z"
+      }
+    }
+  }
+  ```
 
 ### Community APIs
 
 #### 4. Create Community
 - **Endpoint:** `POST /v1/community`
 - **Headers:** `Authorization: Bearer <token>`
-- **Body:**
+- **Request Body:**
   ```json
   {
-    "name": "string"
+    "name": "Tech Enthusiasts"
   }
   ```
-- **Response:** Created community details
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "community_id",
+        "name": "Tech Enthusiasts",
+        "slug": "tech-enthusiasts",
+        "owner": {
+          "id": "user_id",
+          "name": "John Doe"
+        },
+        "created_at": "2024-03-20T10:00:00Z",
+        "updated_at": "2024-03-20T10:00:00Z"
+      }
+    }
+  }
+  ```
 
 #### 5. Get All Communities
 - **Endpoint:** `GET /v1/community`
-- **Query Parameters:** `page` (optional)
-- **Response:** Paginated list of communities
+- **Query Parameters:** `page` (optional, default: 1)
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "meta": {
+        "total": 100,
+        "pages": 10,
+        "page": 1
+      },
+      "data": [
+        {
+          "id": "community_id",
+          "name": "Tech Enthusiasts",
+          "slug": "tech-enthusiasts",
+          "owner": {
+            "id": "user_id",
+            "name": "John Doe"
+          },
+          "created_at": "2024-03-20T10:00:00Z",
+          "updated_at": "2024-03-20T10:00:00Z"
+        }
+      ]
+    }
+  }
+  ```
 
 #### 6. Get My Owned Communities
 - **Endpoint:** `GET /v1/community/me/owner`
 - **Headers:** `Authorization: Bearer <token>`
-- **Query Parameters:** `page` (optional)
-- **Response:** Paginated list of owned communities
+- **Query Parameters:** `page` (optional, default: 1)
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "meta": {
+        "total": 5,
+        "pages": 1,
+        "page": 1
+      },
+      "data": [
+        {
+          "id": "community_id",
+          "name": "Tech Enthusiasts",
+          "slug": "tech-enthusiasts",
+          "created_at": "2024-03-20T10:00:00Z",
+          "updated_at": "2024-03-20T10:00:00Z"
+        }
+      ]
+    }
+  }
+  ```
 
 #### 7. Get My Joined Communities
 - **Endpoint:** `GET /v1/community/me/member`
 - **Headers:** `Authorization: Bearer <token>`
-- **Response:** List of joined communities
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": [
+        {
+          "id": "community_id",
+          "name": "Tech Enthusiasts",
+          "slug": "tech-enthusiasts",
+          "role": "member",
+          "created_at": "2024-03-20T10:00:00Z"
+        }
+      ]
+    }
+  }
+  ```
 
 #### 8. Get Community Members
 - **Endpoint:** `GET /v1/community/:communityId/members`
-- **Response:** List of community members
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": [
+        {
+          "id": "member_id",
+          "community": {
+            "id": "community_id",
+            "name": "Tech Enthusiasts"
+          },
+          "user": {
+            "id": "user_id",
+            "name": "John Doe"
+          },
+          "role": {
+            "id": "role_id",
+            "name": "member"
+          },
+          "created_at": "2024-03-20T10:00:00Z"
+        }
+      ]
+    }
+  }
+  ```
 
 ### Role APIs
 
 #### 9. Create Role
 - **Endpoint:** `POST /v1/role`
-- **Body:**
+- **Request Body:**
   ```json
   {
-    "name": "string"
+    "name": "moderator"
   }
   ```
-- **Response:** Created role details
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "role_id",
+        "name": "moderator",
+        "created_at": "2024-03-20T10:00:00Z"
+      }
+    }
+  }
+  ```
 
 #### 10. Get All Roles
 - **Endpoint:** `GET /v1/role`
-- **Response:** List of all roles
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "meta": {
+        "total": 3,
+        "pages": 1,
+        "page": 1
+      },
+      "data": [
+        {
+          "id": "role_id",
+          "name": "admin",
+          "created_at": "2024-03-20T10:00:00Z"
+        },
+        {
+          "id": "role_id",
+          "name": "moderator",
+          "created_at": "2024-03-20T10:00:00Z"
+        },
+        {
+          "id": "role_id",
+          "name": "member",
+          "created_at": "2024-03-20T10:00:00Z"
+        }
+      ]
+    }
+  }
+  ```
 
 ### Member APIs
 
 #### 11. Add Member
 - **Endpoint:** `POST /v1/member`
 - **Headers:** `Authorization: Bearer <token>`
-- **Body:**
+- **Request Body:**
   ```json
   {
-    "community": "string",
-    "user": "string",
-    "role": "string"
+    "community": "community_id",
+    "user": "user_id",
+    "role": "role_id"
   }
   ```
-- **Response:** Added member details
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "id": "member_id",
+        "community": {
+          "id": "community_id",
+          "name": "Tech Enthusiasts"
+        },
+        "user": {
+          "id": "user_id",
+          "name": "John Doe"
+        },
+        "role": {
+          "id": "role_id",
+          "name": "member"
+        },
+        "created_at": "2024-03-20T10:00:00Z"
+      }
+    }
+  }
+  ```
 
 #### 12. Remove Member
 - **Endpoint:** `DELETE /v1/member/:memberId`
 - **Headers:** `Authorization: Bearer <token>`
-- **Response:** Success message
+- **Response:**
+  ```json
+  {
+    "status": true,
+    "content": {
+      "data": {
+        "success": true
+      }
+    }
+  }
+  ```
 
 ## 🔒 Authentication
 
