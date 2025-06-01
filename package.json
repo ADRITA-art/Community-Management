@@ -14,7 +14,8 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "seed": "bun run prisma/seed.ts"
+    "seed": "bun run prisma/seed.ts",
+    "start": "nodemon --watch src --exec bun run src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
