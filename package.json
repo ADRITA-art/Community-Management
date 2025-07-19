@@ -6,16 +6,21 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.2",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.29",
-    "tsx": "^4.19.4"
+    "jest": "^30.0.0",
+    "ts-jest": "^29.4.0",
+    "tsx": "^4.19.4",
+    "vitest": "^3.2.3"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"
   },
   "scripts": {
     "seed": "bun run prisma/seed.ts",
-    "start": "bun src/index.ts"
+    "start": "bun index.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",

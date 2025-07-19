@@ -1,7 +1,7 @@
-import { roleRoutes } from "./src/routes/roleRoute";
-import { authRoutes } from "./src/routes/authRoute";
-import { communityRoutes } from "./src/routes/communityRoute";
-import {memberRoutes} from "./src/routes/memberRoute";
+import { roleRoutes } from "./src/api/v1/roleApi";
+import { authRoutes } from "./src/api/v1/authApi";
+import { communityRoutes } from "./src/api/v1/communityApi";
+import {memberRoutes} from "./src/api/v1/memberApi";
  console.log(`Server is running on http://localhost:3000`);
 Bun.serve({
   port: 3000,

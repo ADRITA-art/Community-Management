@@ -1,5 +1,5 @@
-import * as communityService from '../services/communityService';
-import { createCommunitySchema } from "../validators/communityValidate";
+import * as communityService from '../../services/v1/communityService';
+import { createCommunitySchema } from "../../validators/v1/communityValidate";
 
 const communityController = {
   async createCommunity(req: Request, userId: string): Promise<Response> {

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { generateId } from "../utils/id"; // Adjust the import path as necessary
+import { generateId } from "../../utils/v1/id"; 
 const prisma = new PrismaClient();
 
 
@@ -34,10 +34,9 @@ export const addMember = async (
   });
 
   if (!requesterMembership || requesterMembership.roleId !== adminRole.id) {
-    throw new NotAllowedAccess(); // You can replace with a standard 403 error if preferred
+    throw new NotAllowedAccess(); 
   }
 
-  // Ensure the user isn’t already a member
   const existingMembership = await prisma.member.findFirst({
     where: {
       communityId: data.community,
@@ -49,7 +48,6 @@ export const addMember = async (
     throw new Error('User is already a member of this community');
   }
 
-  // Add the user as a member to the community with the specified role
   const newMember = await prisma.member.create({
     data: {
       id: generateId(),

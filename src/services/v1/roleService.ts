@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { generateId } from "../utils/id"; // Adjust the import path as necessary
+import { generateId } from "../../utils/v1/id";
 const prisma = new PrismaClient();
 
 export const createRole = async (name: string) => {
@@ -11,3 +11,4 @@ export const createRole = async (name: string) => {
 export const getAllRoles = async () => {
   return await prisma.role.findMany();
 };
+

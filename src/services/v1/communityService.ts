@@ -1,12 +1,11 @@
-import { PrismaClient } from "@prisma/client"; // import PrismaClient class
-const prisma = new PrismaClient(); // instantiate PrismaClient
-import { generateSlug } from "../utils/slug";
-import { generateId } from "../utils/id"; // Adjust the import path as necessary
-
+import { PrismaClient } from "@prisma/client"; 
+const prisma = new PrismaClient(); 
+import { generateSlug } from "../../utils/v1/slug";
+import { generateId } from "../../utils/v1/id"; 
 
 
 export const createCommunity = async (userId: string, data: { name: string }) => {
-  const slug = generateSlug(data.name); // Generate slug based on community name
+  const slug = generateSlug(data.name); 
   return await prisma.$transaction(async (tx) => {
     const communityAdminRole = await tx.role.findFirst({ where: { name: 'Community Admin' } });
     if (!communityAdminRole) {

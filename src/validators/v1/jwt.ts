@@ -1,12 +1,7 @@
 import { sign } from "jsonwebtoken";
+import { config } from "../../config/constant";
 
-const rawSecret = process.env.JWT_SECRET;
-
-if (!rawSecret) {
-  throw new Error("JWT_SECRET is not defined in environment.");
-}
-
-const JWT_SECRET: string = rawSecret;
+const JWT_SECRET = config.JWT_SECRET;
 
 export function createJWT(payload: object): string {
   return sign(payload, JWT_SECRET, {

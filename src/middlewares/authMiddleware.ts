@@ -1,12 +1,7 @@
 import { verify } from "jsonwebtoken";
+import { config } from "../config/constant";
 
-const rawSecret = process.env.JWT_SECRET;
-
-if (!rawSecret) {
-  throw new Error("JWT_SECRET is not defined in environment.");
-}
-
-const SECRET: string = rawSecret;
+const SECRET: string = config.JWT_SECRET;
 
 export async function authenticate(req: Request): Promise<{ userId: string }> {
   const authHeader = req.headers.get("Authorization");
@@ -22,7 +17,7 @@ export async function authenticate(req: Request): Promise<{ userId: string }> {
   }
 
   try {
-console.log("Token received:", token);
+    console.log("Token received:", token);
 
     const payload = verify(token, SECRET);
 

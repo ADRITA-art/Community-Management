@@ -1,5 +1,5 @@
-import { signupController, signinController, getUserById } from "../controllers/authController";
-import { authenticate } from "../middlewares/authMiddleware";
+import { signupController, signinController, getUserById } from "../../controllers/v1/authController";
+import { authenticate } from "../../middlewares/authMiddleware";
 
 export async function authRoutes(req: Request): Promise<Response> {
   const url = new URL(req.url);

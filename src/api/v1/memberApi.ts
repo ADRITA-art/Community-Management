@@ -1,5 +1,5 @@
-import memberController from "../controllers/memberController";
-import { authenticate } from "../middlewares/authMiddleware";
+import memberController from "../../controllers/v1/memberController";
+import { authenticate } from "../../middlewares/authMiddleware";
 
 export async function memberRoutes(req: Request): Promise<Response> {
   const url = new URL(req.url);

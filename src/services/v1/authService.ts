@@ -1,27 +1,26 @@
-import { PrismaClient } from "@prisma/client"; // import PrismaClient class
-const prisma = new PrismaClient(); // instantiate PrismaClient
-import { hashPassword, verifyPassword } from "../validators/hash";
-import { createJWT } from "../validators/jwt";
-import {generateId} from "../utils/id"; // Adjust the import path as necessary
-import { signupSchema } from "../validators/authValidate";
+import { PrismaClient } from "@prisma/client"; 
+const prisma = new PrismaClient(); 
+import { hashPassword, verifyPassword } from "../../validators/v1/hash";
+import { createJWT } from "../../validators/v1/jwt";
+import {generateId} from "../../utils/v1/id"; 
+import { signupSchema } from "../../validators/v1/authValidate";
 
 export async function signupUser(req: Request) {
   const body = await req.json() as { name: string; email: string; password: string };
 
-  // Validate request body
   const { error, value } = signupSchema.validate(body);
   if (error) throw new Error(error.message);
 
   const { name, email, password } = value;
 
   const exists = await prisma.user.findUnique({ where: { email } });
-  if (exists) throw new Error("User already exists");
+  if (exists) throw new Error("User already exists!!!");
 
   const hashedPassword = await hashPassword(password);
 
   const user = await prisma.user.create({
     data: {
-      id: generateId(), // Generate a unique ID for the user
+      id: generateId(), 
       name,
       email,
       password: hashedPassword,

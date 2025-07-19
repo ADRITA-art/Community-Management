@@ -1,5 +1,5 @@
-import { handleCreateRole, handleGetAllRoles } from "../controllers/roleController";
-import { authenticate } from "../middlewares/authMiddleware";
+import { handleCreateRole, handleGetAllRoles } from "../../controllers/v1/roleController";
+import { authenticate } from "../../middlewares/authMiddleware";
 
 export const roleRoutes = async (req: Request): Promise<Response> => {
   const { method, url } = req;
