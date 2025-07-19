@@ -1,5 +1,5 @@
 import { verify } from "jsonwebtoken";
-import { config } from "../config/constant";
+import { config } from "@config/constant";
 
 const SECRET: string = config.JWT_SECRET;
 

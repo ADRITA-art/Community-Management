@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient(); 
 import { hashPassword, verifyPassword } from "../../validators/v1/hash";
 import { createJWT } from "../../validators/v1/jwt";
-import {generateId} from "../../utils/v1/id"; 
+import {generateId} from "@utils/v1/id"; 
 import { signupSchema } from "../../validators/v1/authValidate";
 
 export async function signupUser(req: Request) {

@@ -3,12 +3,13 @@ import { authRoutes } from "./src/api/v1/authApi";
 import { communityRoutes } from "./src/api/v1/communityApi";
 import {memberRoutes} from "./src/api/v1/memberApi";
 import { connectToDatabase } from "./src/loader/database";
+import { config } from "./src/config/constant";
 
 await connectToDatabase();
 
 console.log(`Server is running on http://localhost:3000`);
 Bun.serve({
-  port: 3000,
+  port: config.PORT,
   fetch(req) {
     const url = new URL(req.url);
     const pathname = url.pathname;

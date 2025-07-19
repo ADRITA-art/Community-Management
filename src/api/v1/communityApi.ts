@@ -1,5 +1,5 @@
 import { authenticate } from "../../middlewares/authMiddleware";
-import { communityController } from "../../controllers/v1/communityController";
+import { communityController } from "@controllers/v1/communityController";
 
 export async function communityRoutes(req: Request): Promise<Response> {
   const url = new URL(req.url);

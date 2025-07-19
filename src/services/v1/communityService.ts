@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"; 
 const prisma = new PrismaClient(); 
-import { generateSlug } from "../../utils/v1/slug";
-import { generateId } from "../../utils/v1/id"; 
+import { generateSlug } from "@utils/v1/slug";
+import { generateId } from "@utils/v1/id"; 
 
 
 export const createCommunity = async (userId: string, data: { name: string }) => {

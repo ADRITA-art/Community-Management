@@ -1,4 +1,4 @@
-import * as memberService from "../../services/v1/memberService";
+import * as memberService from "@services/v1/memberService";
 
 const memberController = {
   async addMember(req: Request, userId: string): Promise<Response> {

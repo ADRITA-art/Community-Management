@@ -1,4 +1,4 @@
-import * as communityService from '../../services/v1/communityService';
+import * as communityService from '@services/v1/communityService';
 import { createCommunitySchema } from "../../validators/v1/communityValidate";
 
 const communityController = {

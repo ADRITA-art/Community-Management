@@ -10,6 +10,14 @@
      "esModuleInterop": true,
      "allowSyntheticDefaultImports": true,
 
+     "paths": {
+      "@utils/*": ["./src/utils/*"],
+      "@services/*": ["./src/services/*"],
+      "@config/*": ["./src/config/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@api/*": ["./src/api/*"]
+    },
+
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

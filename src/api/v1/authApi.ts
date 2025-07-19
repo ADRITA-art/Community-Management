@@ -1,4 +1,4 @@
-import { signupController, signinController, getUserById } from "../../controllers/v1/authController";
+import { signupController, signinController, getUserById } from "@controllers/v1/authController";
 import { authenticate } from "../../middlewares/authMiddleware";
 
 export async function authRoutes(req: Request): Promise<Response> {

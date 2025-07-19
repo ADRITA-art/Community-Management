@@ -1,5 +1,5 @@
-import { signupUser, signinUser } from "../../services/v1/authService";
-import { sendJSON } from "../../utils/v1/response";
+import { signupUser, signinUser } from "@services/v1/authService";
+import { sendJSON } from "@utils/v1/response";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
